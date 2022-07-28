@@ -23,7 +23,7 @@ public class Knight extends Piece{
     @Override
     public Collection<Move> calculateLegalMoves(Board board) {
 
-        final List<Move> legalmoves = new ArrayList<>();
+        final List<Move> legalMoves = new ArrayList<>();
 
         for(final int currentCandidateOffset: CANDIDATE_MOVE_COORDINATES) {
             final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
@@ -40,18 +40,18 @@ public class Knight extends Piece{
                 final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
 
                 if(!candidateDestinationTile.isTileOccupied()) {
-                    legalmoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+                    legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 } else {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
 
                     if(this.pieceAlliance != pieceAlliance) {
-                        legalmoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                        legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
                     }
                 }
             }
         }
-        return legalmoves;
+        return legalMoves;
     }
 
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
